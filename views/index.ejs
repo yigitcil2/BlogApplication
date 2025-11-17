@@ -1,0 +1,30 @@
+
+<h1>Blog Page</h1>
+
+<h3>Enter Blog:</h3>
+<form action="/submit" method="post">
+    <input type="text"  name="title" placeholder="Title" required><br><br>
+    <textarea name="content" placeholder="Write your blog..." required></textarea> <br><br>
+    <input type="text" name="author" placeholder="Author" required><br><br>
+    <button type="submit">Publish</button>
+</form>
+
+<h2>Blogs</h2>
+<% if(locals.blogs){ %>
+    <% blogs.forEach(blog => { %>
+        <div class="post">
+            <h2><%= blog.title %></h2>
+            <p><%= blog.content %></p>
+            <p><em><%= blog.author %></em></p>
+            <a href="/edit/<%= blog.id %>">
+                <button type="button">Edit</button>
+            </a>
+            <form action="/delete/<%= blog.id %>" method="POST" style="display:inline">
+                <button type="submit" onclick="return confirm('Are you sure to delete this blog')">Delete</button>
+            </form>
+        </div>
+        <hr>
+   <% }) %>
+<% } else {%>
+    <p>No blog posted. </p>
+<%}%>
